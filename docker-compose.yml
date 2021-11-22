@@ -1,0 +1,60 @@
+version: '3.7'
+services:
+    app:
+        build:
+            args:
+                user: lewis
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        image: php-symfony
+        container_name: prueba-app
+        restart: unless-stopped
+        tty: true
+        environment:
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+            - ./docker-compose/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - prueba
+    nginx:
+        image: nginx:latest
+        container_name: prueba-nginx
+        restart: unless-stopped
+        tty: true
+        ports:
+            - '82:80'
+            - '444:443'
+        volumes:
+            - ./:/var/www
+            - ./docker-compose/nginx:/etc/nginx/conf.d/
+        networks:
+            - prueba
+    db:
+        image: postgres:13.4-alpine
+        container_name: prueba-db
+        restart: always
+        volumes:
+            - ./docker-compose/db:/var/lib/postgresql/data
+        environment:
+            POSTGRES_PASSWORD: lewisortiz
+            POSTGRES_USER: lewis
+            POSTGRES_DB: pruebalewis
+        ports:
+            - '54320:5432'
+        # volumes:
+        #     - dbdata:/var/lib/mysql
+        # - ./docker-compose/mysql/my.cnf:/etc/mysql/my.cnf
+        networks:
+            - prueba
+
+networks:
+    prueba:
+        driver: bridge
+#Volumes
+volumes:
+    dbdata:
+        driver: local
