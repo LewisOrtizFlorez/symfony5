@@ -1,7 +1,6 @@
 {% extends "base.html.twig" %}
 {% block title %}Show conference{% endblock %}
 {% block body %}
-  <a href="{{path('homepage')}}">Go home</a>
   <h1>{{conference}}</h1>
  
   {% if comments|length > 0 %}
@@ -19,10 +18,10 @@
       <hr>
     {% endfor %}
     {% if previous >= 0 %}
-      <a href="{{path('conference', {id: conference.id, offset: previous})}}">Previous</a>
+      <a href="{{path('conference', {slug: conference.slug, offset: previous})}}">Previous</a>
     {% endif %}
     {% if next < comments|length %}
-      <a href="{{path('conference', {id: conference.id, offset: next})}}">Next</a>
+      <a href="{{path('conference', {slug: conference.slug, offset: next})}}">Next</a>
     {% endif %}
   {% else %}
     <p>No comments yet</p>

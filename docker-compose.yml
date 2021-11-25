@@ -49,6 +49,8 @@ services:
             - test
     redis:
         image: redis:6.2.6-alpine
+        container_name: prueba-redis
+        restart: always
         ports:
             - '6379:6379'
         networks:
