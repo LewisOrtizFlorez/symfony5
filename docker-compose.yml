@@ -7,8 +7,8 @@ services:
                 uid: 1000
             context: ./
             dockerfile: Dockerfile
-        image: php-symfony
-        container_name: prueba-app
+        image: php-7.4-fmp-lewis
+        container_name: test-app
         restart: unless-stopped
         tty: true
         environment:
@@ -19,10 +19,10 @@ services:
             - ./:/var/www
             - ./docker-compose/php/local.ini:/usr/local/etc/php/conf.d/local.ini
         networks:
-            - prueba
+            - test
     nginx:
         image: nginx:1.21.4-alpine
-        container_name: prueba-nginx
+        container_name: test-nginx
         restart: unless-stopped
         tty: true
         ports:
@@ -32,30 +32,30 @@ services:
             - ./:/var/www
             - ./docker-compose/nginx:/etc/nginx/conf.d/
         networks:
-            - prueba
+            - test
     db:
         image: postgres:13.4-alpine
-        container_name: prueba-db
+        container_name: test-db
         restart: always
         volumes:
-            - ./docker-compose/db:/var/lib/postgresql/data
+            - ./docker-compose/db-2:/var/lib/postgresql/data
         environment:
             POSTGRES_PASSWORD: lewisortiz
             POSTGRES_USER: lewis
-            POSTGRES_DB: pruebalewis
+            POSTGRES_DB: testlewis
         ports:
-            - '54320:5432'
+            - '54321:5432'
         networks:
-            - prueba
+            - test
     redis:
         image: redis:6.2.6-alpine
         ports:
             - '6379:6379'
         networks:
-            - prueba
+            - test
 
 networks:
-    prueba:
+    test:
         driver: bridge
 #Volumes
 volumes:
