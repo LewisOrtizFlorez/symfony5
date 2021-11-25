@@ -1,2 +1,2 @@
-# /app/vendor/
-# /app/var/
+/vendor/
+/var/

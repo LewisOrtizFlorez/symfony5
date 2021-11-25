@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ConferenceController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hola desde mi casa :V</h1>
+    {% if conferences|length > 0 %}
+        <ul>
+            {% for conference in conferences %}
+                <li>
+                    <h3>{{ conference }}</h3>
+                    <a href="{{path('conference', {id: conference.id})}}">Go to conference</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay conferencias</p>
+    {% endif %}
+</div>
+{% endblock %}

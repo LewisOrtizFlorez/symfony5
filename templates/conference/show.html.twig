@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+{% block title %}Show conference{% endblock %}
+{% block body %}
+  <a href="{{path('homepage')}}">Go home</a>
+  <h1>{{conference}}</h1>
+ 
+  {% if comments|length > 0 %}
+
+    <h2>There are {{ comments|length }} Comments.</h2>
+
+    {% for comment in comments %}
+      <h3>{{comment.author}} <small>{{comment.createdAt|format_datetime('medium','short')}}</small></h3>
+      <small>{{comment.email}}</small>
+      <h4>Content:</h4>
+      <p>{{comment.text}}</p>
+      {% if comment.photo|length > 0 %}
+        <img src="{{comment.photo}}}" alt="{{comment.author}}">
+      {% endif %}
+      <hr>
+    {% endfor %}
+    {% if previous >= 0 %}
+      <a href="{{path('conference', {id: conference.id, offset: previous})}}">Previous</a>
+    {% endif %}
+    {% if next < comments|length %}
+      <a href="{{path('conference', {id: conference.id, offset: next})}}">Next</a>
+    {% endif %}
+  {% else %}
+    <p>No comments yet</p>
+  {% endif %}
+{% endblock %}

@@ -21,7 +21,7 @@ services:
         networks:
             - prueba
     nginx:
-        image: nginx:latest
+        image: nginx:1.21.4-alpine
         container_name: prueba-nginx
         restart: unless-stopped
         tty: true
@@ -48,6 +48,12 @@ services:
         # volumes:
         #     - dbdata:/var/lib/mysql
         # - ./docker-compose/mysql/my.cnf:/etc/mysql/my.cnf
+        networks:
+            - prueba
+    redis:
+        image: redis:6.2.6-alpine
+        ports:
+            - '6379:6379'
         networks:
             - prueba
 
