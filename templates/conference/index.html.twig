@@ -15,7 +15,7 @@
             {% for conference in conferences %}
                 <li>
                     <h3>{{ conference }}</h3>
-                    <a href="{{path('conference', {id: conference.id})}}">Go to conference</a>
+                    <a href="{{path('conference', {id: conference.id})}}">View</a>
                 </li>
             {% endfor %}
         </ul>

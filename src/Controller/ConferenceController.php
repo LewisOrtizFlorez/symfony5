@@ -14,8 +14,10 @@ class ConferenceController extends AbstractController
     /**
      * @Route("/", name="homepage", methods={"GET"})
      */
-    public function index(ConferenceRepository $conferenceRepository)
+    public function index(Request $request, ConferenceRepository $conferenceRepository)
     {
+        $request->getSession()->set('saludo', 'Hola mundo');
+        // dd($request->getSession()->get('saludo'));
         return $this->render('conference/index.html.twig', [
             'conferences' => $conferenceRepository->findAll(),
         ]);

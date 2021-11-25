@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -50,6 +51,14 @@ class Comment
     public function __toString()
     {
         return $this->author . ' ' . $this->email;
+    }
+
+    /** 
+    **@ORM\PrePersist
+    */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int

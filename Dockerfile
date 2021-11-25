@@ -95,13 +95,12 @@ ENV PGID ${PGID}
 RUN groupmod -o -g ${PGID} www-data && \
     usermod -o -u ${PUID} -g www-data www-data
 
-RUN chown -R www-data:www-data /var/www
 
 # Copy and run composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 RUN wget https://get.symfony.com/cli/installer -O - | bash
-RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+# RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
 EXPOSE 9000
 

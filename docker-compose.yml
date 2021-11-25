@@ -3,7 +3,7 @@ services:
     app:
         build:
             args:
-                user: lewis
+                user: user
                 uid: 1000
             context: ./
             dockerfile: Dockerfile
@@ -45,9 +45,6 @@ services:
             POSTGRES_DB: pruebalewis
         ports:
             - '54320:5432'
-        # volumes:
-        #     - dbdata:/var/lib/mysql
-        # - ./docker-compose/mysql/my.cnf:/etc/mysql/my.cnf
         networks:
             - prueba
     redis:
