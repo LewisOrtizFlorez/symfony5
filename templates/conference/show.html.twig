@@ -13,7 +13,7 @@
       <h4>Content:</h4>
       <p>{{comment.text}}</p>
       {% if comment.photo|length > 0 %}
-        <img src="{{comment.photo}}}" alt="{{comment.author}}">
+        <img src="{{asset('uploads/photos/'~ comment.photo)}}" alt="{{comment.author}}">
       {% endif %}
       <hr>
     {% endfor %}
@@ -26,4 +26,6 @@
   {% else %}
     <p>No comments yet</p>
   {% endif %}
+  <h2>Add a comment</h2>
+  {{form(commentForm)}}
 {% endblock %}

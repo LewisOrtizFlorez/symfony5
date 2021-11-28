@@ -17,11 +17,8 @@ easy_admin:
                     - author
                     - { property: 'email', type: 'email' }
                     - text
-                    - {
-                          property: 'createdAt',
-                          type: 'datetime',
-                          format: 'd/m/Y H:i',
-                      }
+                    - { property: 'photo', type: 'image', base_path: 'uploads/photos', label: 'Photo' }
+                    - { property: 'createdAt', type: 'datetime', format: 'd/m/Y H:i' }
                 sort: ['createdAt', 'desc']
                 filters: ['conference']
             edit:
