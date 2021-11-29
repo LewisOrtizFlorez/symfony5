@@ -2,3 +2,7 @@
 /var/
 /public/uploads/
 docker_compose/
+/symfony.lock
+/composer.lock
+symfony.lock
+composer.lock

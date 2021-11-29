@@ -7,6 +7,7 @@ use App\Entity\Conference;
 use App\Form\CommentFormType;
 use App\Repository\CommentRepository;
 use App\Repository\ConferenceRepository;
+use App\SpamChecker;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,7 +40,7 @@ class ConferenceController extends AbstractController
     /**
      * @Route("/conference/{slug}", name="conference", methods={"GET", "POST", "DELETE", "PUT"})
      */
-    public function show(Request $request, CommentRepository $commentRepository, Conference $conference, string $photoDir)
+    public function show(Request $request, CommentRepository $commentRepository, Conference $conference, SpamChecker $spamChecker, string $photoDir)
     {
 
         $comment = new Comment();
@@ -64,6 +65,18 @@ class ConferenceController extends AbstractController
             }
 
             $this->entityManager->persist($comment);
+
+            $context = [
+                'user_ip' => $request->getClientIp(),
+                'user_agent' => $request->headers->get('user-agent'),
+                'referrer' => $request->headers->get('referer'),
+                'permalink' => $request->getUri(),
+            ];
+            
+            if("is spam" === $spamChecker->getSpamCore($comment, $context)){
+               throw new \RuntimeException('Comment is spam, go away!');
+            }
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('conference', ['slug' => $conference->getSlug()]);

@@ -38,7 +38,7 @@ services:
         container_name: test-db
         restart: always
         volumes:
-            - ./docker_compose/db-2:/var/lib/postgresql/data
+            - ./docker_compose/db:/var/lib/postgresql/data
         environment:
             POSTGRES_PASSWORD: lewisortiz
             POSTGRES_USER: lewis
