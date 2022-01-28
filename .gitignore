@@ -1,4 +1,4 @@
 /vendor/
 /var/
 /public/uploads/
-docker_compose/
+docker_compose/db/
