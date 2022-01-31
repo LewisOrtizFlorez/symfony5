@@ -100,7 +100,7 @@ RUN groupmod -o -g ${PGID} www-data && \
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 RUN wget https://get.symfony.com/cli/installer -O - | bash
-# RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
 EXPOSE 9000
 
